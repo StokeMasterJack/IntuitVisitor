@@ -2,10 +2,15 @@ package com.intuit.august2020.intuitvisitor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.core.content.edit
+import kotlinx.android.synthetic.main.activity_login.*
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
+
+    val cities = listOf("Palo Alto", "Shanghai", "Casablanca", "Madrid", "Montreal")
 
     fun onClick(name: String, lambda: (String)->Unit) {
         lambda("hello")
@@ -13,10 +18,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
-        onClick("This is the name") {
-            println(it)
+        val adapter = ArrayAdapter(this,
+            android.R.layout.simple_spinner_item, cities)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCity.adapter = adapter
+        spinnerCity.setSelection(3)
+
+        spinnerCity.setOnItemClickListener { adapterView, view, position, id ->
+            Log.d("City selection", cities[position])
         }
 
         button_login.setOnClickListener {
