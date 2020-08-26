@@ -1,14 +1,21 @@
 package com.intuit.august2020.intuitvisitor
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+
+    companion object {
+        const val KEY_IS_LOGGED_IN = "isLoggedIn"
+    }
 
     val cities = listOf("Palo Alto", "Shanghai", "Casablanca", "Madrid", "Montreal")
 
@@ -35,11 +42,29 @@ class LoginActivity : AppCompatActivity() {
             val pass = edit_password.text.toString()
 
             API.login(user, pass) { isLoggedIn ->
-                if (!isLoggedIn) {
-                    Toast.makeText(this,
-                        if (isLoggedIn) "You are OK" else "Credentials are wrong",
-                        Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    if (isLoggedIn) "You are OK" else "Credentials are wrong",
+                    Toast.LENGTH_LONG).show()
+
+                if (isLoggedIn) {
+                    // Save flag for next sessions
+                    // Move to the next activity
+
+//                    val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
+//
+//                    // Save data
+//                    prefs.edit {
+//                        // Transaction
+//                        putBoolean(KEY_IS_LOGGED_IN, true)
+//                    }
+//
+//                    // Read data
+//                    prefs.getBoolean(KEY_IS_LOGGED_IN, false)
                 }
+//                val intent = Intent(this, DemoActivity::class.java)
+//                startActivity(intent)
+
+
             }
         }
     }
