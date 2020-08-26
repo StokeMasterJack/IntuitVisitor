@@ -27,15 +27,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //TODO: Check if the user is auto logged in
+        // Start HomeActivity
+
         val adapter = ArrayAdapter(this,
             android.R.layout.simple_spinner_item, cities)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerCity.adapter = adapter
         spinnerCity.setSelection(3)
 
-        spinnerCity.setOnItemClickListener { adapterView, view, position, id ->
-            Log.d("City selection", cities[position])
-        }
 
         button_login.setOnClickListener {
             val user = edit_user_name.text.toString()
@@ -48,21 +48,16 @@ class LoginActivity : AppCompatActivity() {
 
                 if (isLoggedIn) {
                     // Save flag for next sessions
-                    // Move to the next activity
+                    val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
+                    prefs.edit {
+                        // Transaction
+                        putBoolean(KEY_IS_LOGGED_IN, true)
+                    }
 
-//                    val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
-//
-//                    // Save data
-//                    prefs.edit {
-//                        // Transaction
-//                        putBoolean(KEY_IS_LOGGED_IN, true)
-//                    }
-//
-//                    // Read data
-//                    prefs.getBoolean(KEY_IS_LOGGED_IN, false)
+                    // Move to the next activity
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
                 }
-//                val intent = Intent(this, DemoActivity::class.java)
-//                startActivity(intent)
 
 
             }

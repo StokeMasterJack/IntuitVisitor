@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin_label">16dp</dimen>
     <dimen name="margin_top">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
