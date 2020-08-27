@@ -26,9 +26,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
 
-        //TODO: Check if the user is auto logged in
-        // Start HomeActivity
+        if (prefs.getBoolean(KEY_IS_LOGGED_IN, false)) {
+            goHome()
+            finish()
+        }
 
         val adapter = ArrayAdapter(this,
             android.R.layout.simple_spinner_item, cities)
@@ -48,20 +51,22 @@ class LoginActivity : AppCompatActivity() {
 
                 if (isLoggedIn) {
                     // Save flag for next sessions
-                    val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
                     prefs.edit {
                         // Transaction
                         putBoolean(KEY_IS_LOGGED_IN, true)
                     }
-
-                    // Move to the next activity
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
+                    goHome()
                 }
 
 
             }
         }
+    }
+
+    private fun goHome() {
+        // Move to the next activity
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 
 

@@ -1,11 +1,13 @@
 package com.intuit.august2020.intuitvisitor
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.core.content.edit
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -30,7 +32,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> {
-                //TODO: Set a false in SharedPrefs
+                val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
+                prefs.edit {
+                    putBoolean(LoginActivity.KEY_IS_LOGGED_IN, false)
+                    startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
+                }
                 finish()
             }
             R.id.action_print -> {
