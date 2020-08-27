@@ -1,4 +1,4 @@
-package com.intuit.august2020.intuitvisitor
+package com.intuit.august2020.intuitvisitor.activities
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.core.content.edit
+import com.intuit.august2020.intuitvisitor.R
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {

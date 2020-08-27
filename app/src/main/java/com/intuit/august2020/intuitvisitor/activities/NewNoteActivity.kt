@@ -1,9 +1,10 @@
-package com.intuit.august2020.intuitvisitor
+package com.intuit.august2020.intuitvisitor.activities
 
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.intuit.august2020.intuitvisitor.R
 import kotlinx.android.synthetic.main.activity_new_note.*
 
 class NewNoteActivity : AppCompatActivity() {

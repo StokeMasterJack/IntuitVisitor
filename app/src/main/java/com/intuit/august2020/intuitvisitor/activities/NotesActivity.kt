@@ -1,19 +1,18 @@
-package com.intuit.august2020.intuitvisitor
+package com.intuit.august2020.intuitvisitor.activities
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.intuit.august2020.intuitvisitor.adapters.NotesAdapter
+import com.intuit.august2020.intuitvisitor.R
 import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.content_notes.*
 import org.json.JSONArray
-import org.json.JSONObject
 
 class NotesActivity : AppCompatActivity() {
 
@@ -60,7 +59,8 @@ class NotesActivity : AppCompatActivity() {
         recyclerNotes.layoutManager = LinearLayoutManager(this,
             LinearLayoutManager.VERTICAL, false)
 
-        adapter = NotesAdapter(notes)
+        adapter =
+            NotesAdapter(notes)
         // We detect when the user taps on one item in the RecyclerView
         adapter.setOnItemSelected { selectionIndex ->
             Log.d("Recycler", "$selectionIndex was clicked")

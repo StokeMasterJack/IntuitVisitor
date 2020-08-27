@@ -1,12 +1,12 @@
-package com.intuit.august2020.intuitvisitor
+package com.intuit.august2020.intuitvisitor.adapters
 
-import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.intuit.august2020.intuitvisitor.R
 
 class NotesAdapter(val notes: MutableList<String>) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
@@ -31,7 +31,10 @@ class NotesAdapter(val notes: MutableList<String>) : RecyclerView.Adapter<NotesA
         val inflater = LayoutInflater.from(parent.context)
         // THIRD ARGUMENT MUST BE FALSE
         val itemView = inflater.inflate(R.layout.item_note, parent, false)
-        val viewHolder = NotesViewHolder(itemView)
+        val viewHolder =
+            NotesViewHolder(
+                itemView
+            )
 //
 //        if (count % 2 == 0) {
 //            itemView.setBackgroundColor(Color.BLUE)

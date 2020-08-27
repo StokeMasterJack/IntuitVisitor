@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.intuit.august2020.intuitvisitor">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,17 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewNoteActivity"></activity>
+        <service
+            android:name=".services.WeatherService"
+            android:enabled="true"
+            android:exported="false"></service>
+
+        <activity android:name=".activities.NewNoteActivity" />
         <activity
-            android:name=".NotesActivity"
+            android:name=".activities.NotesActivity"
             android:label="@string/title_activity_notes"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".VisitorActivity" />
+        <activity android:name=".activities.VisitorActivity" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:label="@string/title_home_activity" />
-        <activity android:name=".DemoActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activities.DemoActivity" />
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

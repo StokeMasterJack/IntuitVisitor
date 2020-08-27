@@ -1,14 +1,14 @@
-package com.intuit.august2020.intuitvisitor
+package com.intuit.august2020.intuitvisitor.activities
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
+import com.intuit.august2020.intuitvisitor.API
+import com.intuit.august2020.intuitvisitor.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -44,16 +44,24 @@ class LoginActivity : AppCompatActivity() {
             val user = edit_user_name.text.toString()
             val pass = edit_password.text.toString()
 
-            API.login(user, pass) { isLoggedIn ->
-                Toast.makeText(this,
+            API.login(
+                user,
+                pass
+            ) { isLoggedIn ->
+                Toast.makeText(
+                    this,
                     if (isLoggedIn) "You are OK" else "Credentials are wrong",
-                    Toast.LENGTH_LONG).show()
+                    Toast.LENGTH_LONG
+                ).show()
 
                 if (isLoggedIn) {
                     // Save flag for next sessions
                     prefs.edit {
                         // Transaction
-                        putBoolean(KEY_IS_LOGGED_IN, true)
+                        putBoolean(
+                            KEY_IS_LOGGED_IN,
+                            true
+                        )
                     }
                     goHome()
                 }
