@@ -20,8 +20,8 @@ class NotesActivity : AppCompatActivity() {
         const val REQUEST_NEW_NOTE = 100
     }
 
-    fun newNote() {
-        notes.add("New note")
+    fun newNote(note: String) {
+        notes.add(note)
         // This is to notify the dataset that there is new data
         adapter.notifyDataSetChanged()
     }
@@ -30,9 +30,10 @@ class NotesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
 
-        for (i in 0..100) {
-            notes.add("Note $i")
-        }
+//        Dummy notes
+//        for (i in 0..100) {
+//            notes.add("Note $i")
+//        }
 
         setSupportActionBar(toolbar)
 
@@ -40,7 +41,7 @@ class NotesActivity : AppCompatActivity() {
         recyclerNotes.layoutManager = LinearLayoutManager(this,
             LinearLayoutManager.VERTICAL, false)
 
-        val adapter = NotesAdapter(notes)
+        adapter = NotesAdapter(notes)
         // We detect when the user taps on one item in the RecyclerView
         adapter.setOnItemSelected { selectionIndex ->
             Log.d("Recycler", "$selectionIndex was clicked")
@@ -60,8 +61,9 @@ class NotesActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode==100) {
-            if (requestCode== Activity.RESULT_OK) {
-                val note = data?.getStringExtra("note")
+            if (resultCode== Activity.RESULT_OK) {
+                val note = data?.getStringExtra("note") ?: "No text"
+                newNote(note)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
