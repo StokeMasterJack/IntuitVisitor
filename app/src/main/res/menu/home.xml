@@ -4,10 +4,8 @@
 
     <item
         android:id="@+id/action_logout"
-        android:title="Log out" />
-    <item
-        android:id="@+id/action_print"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="Print"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/exit_24"
+        android:title="Log out"
+        android:showAsAction="always|withText" />
+
 </menu>

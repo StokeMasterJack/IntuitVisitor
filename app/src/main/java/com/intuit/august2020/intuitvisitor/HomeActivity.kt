@@ -39,9 +39,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 finish()
             }
-            R.id.action_print -> {
 
-            }
         }
         return super.onOptionsItemSelected(item)
     }
