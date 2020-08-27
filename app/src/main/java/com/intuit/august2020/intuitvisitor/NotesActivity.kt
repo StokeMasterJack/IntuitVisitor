@@ -1,15 +1,19 @@
 package com.intuit.august2020.intuitvisitor
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.content_notes.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class NotesActivity : AppCompatActivity() {
 
@@ -18,22 +22,37 @@ class NotesActivity : AppCompatActivity() {
 
     companion object {
         const val REQUEST_NEW_NOTE = 100
+        const val KEY_NOTES = "notes"
     }
 
     fun newNote(note: String) {
         notes.add(note)
         // This is to notify the dataset that there is new data
         adapter.notifyDataSetChanged()
+
+        // Save the data
+        val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
+        prefs.edit {
+            val jsonArray = JSONArray(notes)
+            putString(KEY_NOTES, jsonArray.toString())
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
 
-//        Dummy notes
-//        for (i in 0..100) {
-//            notes.add("Note $i")
-//        }
+//        // Incoming
+//        intent.getStringExtra("note")
+
+        val prefs = getSharedPreferences("login-data", Context.MODE_PRIVATE)
+        val json = prefs.getString(KEY_NOTES, "[]")
+        var notesJson = JSONArray(json)
+        for (i in 0 until notesJson.length()) {
+            notes.add(notesJson[i] as String)
+        }
+
 
         setSupportActionBar(toolbar)
 
@@ -45,6 +64,9 @@ class NotesActivity : AppCompatActivity() {
         // We detect when the user taps on one item in the RecyclerView
         adapter.setOnItemSelected { selectionIndex ->
             Log.d("Recycler", "$selectionIndex was clicked")
+            val intent = Intent(this, NewNoteActivity::class.java)
+            intent.putExtra("note", notes[selectionIndex])
+            startActivity(intent)
         }
         recyclerNotes.adapter = adapter
 
