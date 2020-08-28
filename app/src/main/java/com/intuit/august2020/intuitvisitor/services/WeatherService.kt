@@ -1,9 +1,7 @@
 package com.intuit.august2020.intuitvisitor.services
 
 import android.app.IntentService
-import android.app.Service
 import android.content.Intent
-import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
 
@@ -20,6 +18,7 @@ class WeatherService : IntentService("Echo Service") {
         Log.d(TAG, "onCreate")
         Toast.makeText(this, "onStart", Toast.LENGTH_LONG).show()
         super.onCreate()
+
     }
 
     // WORKER THREAD

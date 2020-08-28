@@ -23,6 +23,11 @@ class HomeActivity : AppCompatActivity() {
         btnNotes.setOnClickListener {
             startActivity(Intent(this, NotesActivity::class.java))
         }
+
+
+        btnInfo.setOnClickListener {
+            startActivity(Intent(this, InfoActivity::class.java))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
