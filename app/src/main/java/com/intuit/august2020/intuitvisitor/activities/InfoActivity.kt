@@ -1,36 +1,79 @@
 package com.intuit.august2020.intuitvisitor.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.webkit.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.intuit.august2020.intuitvisitor.R
 import kotlinx.android.synthetic.main.activity_info.*
 
+
 class InfoActivity : AppCompatActivity() {
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu?.add("Send message to JS")
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val url = "sms:234234?body=Text"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+
+
+        webview.evaluateJavascript(
+            """
+                receiveMessage('Hello from Kotlin');
+            """)
+            {
+            Log.d("JS", it)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // Chromium-webview
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
 
-//        webview.loadUrl("https://www.intuit.com/")
+        webview.addJavascriptInterface(object {
+            @JavascriptInterface fun goBack() {
+                finish()
+            }
+        }, "kotlin")
+
         webview.loadUrl("file:///android_asset/index.html")
         webview.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
                 request: WebResourceRequest?
             ): Boolean {
-//                if (request?.url.host=="intuit.com") {
-//                    return true
-//                } else {
-                      // create an implicit intent to the browser
-//                    return false
-//                }
                 return super.shouldOverrideUrlLoading(view, request)
             }
         }
+        webview.webChromeClient = object : WebChromeClient() {
+
+
+            override fun onJsAlert(
+                view: WebView?,
+                url: String?,
+                message: String?,
+                result: JsResult?
+            ): Boolean {
+                Toast.makeText(this@InfoActivity, message, Toast.LENGTH_LONG).show()
+                return false
+            }
+        }
         webview.settings.javaScriptEnabled = true
-//        webview.loadData("<h1>Hello from Kotlin</h1><marquee>Hello!</marquee>",
-//        "text/html", "utf-8")
     }
 }
