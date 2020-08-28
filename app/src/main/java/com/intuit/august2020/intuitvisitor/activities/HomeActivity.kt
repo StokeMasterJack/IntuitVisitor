@@ -24,9 +24,12 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, NotesActivity::class.java))
         }
 
-
         btnInfo.setOnClickListener {
             startActivity(Intent(this, InfoActivity::class.java))
+        }
+
+        btnLocation.setOnClickListener {
+            startActivity(Intent(this, LocationActivity::class.java))
         }
     }
 

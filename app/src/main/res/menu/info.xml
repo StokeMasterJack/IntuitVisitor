@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_about"
+        android:title="About the Company" />
+    <item
+        android:id="@+id/action_help"
+        android:title="Help" />
+    <item
+        android:id="@+id/action_location"
+        android:title="Our Location" />
+    <item
+        android:id="@+id/action_js"
+        android:title="Execute JS" />
+</menu>

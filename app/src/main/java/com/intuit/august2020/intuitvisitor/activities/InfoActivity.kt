@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.webkit.*
 import android.widget.Toast
@@ -17,24 +18,39 @@ import kotlinx.android.synthetic.main.activity_info.*
 class InfoActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menu?.add("Send message to JS")
+        MenuInflater(this).inflate(R.menu.info, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val url = "sms:234234?body=Text"
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
+        when (item.itemId) {
+            R.id.action_about -> {
+                val url = "https://intuit.com"
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            }
+            R.id.action_help -> {
+                webview.loadUrl("file:///android_asset/index.html")
+            }
+            R.id.action_location -> {
+                webview.loadUrl("https://maps.google.com/?q=Intuit+Campus")
 
-
-        webview.evaluateJavascript(
-            """
+            }
+            R.id.action_js -> {
+                webview.evaluateJavascript(
+                    """
                 receiveMessage('Hello from Kotlin');
             """)
-            {
-            Log.d("JS", it)
+                {
+                    Log.d("JS", it)
+                }
+            }
         }
+
+
+
+
         return super.onOptionsItemSelected(item)
     }
 

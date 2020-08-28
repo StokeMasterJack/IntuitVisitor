@@ -64,7 +64,7 @@ class NotesActivity : AppCompatActivity() {
         // We detect when the user taps on one item in the RecyclerView
         adapter.setOnItemSelected { selectionIndex ->
             Log.d("Recycler", "$selectionIndex was clicked")
-            val intent = Intent(this, NewNoteActivity::class.java)
+            val intent = Intent(this, NoteDetailsActivity::class.java)
             intent.putExtra("note", notes[selectionIndex])
             startActivity(intent)
         }

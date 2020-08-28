@@ -14,8 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LocationActivity"></activity>
-        <activity android:name=".activities.InfoActivity" />
+        <activity android:name=".activities.NoteDetailsActivity"
+            android:label="Note Details"></activity>
+        <activity android:name=".activities.LocationActivity"
+            android:label="Your Location"/>
+        <activity android:name=".activities.InfoActivity"
+            android:label="Visitor's Info"/>
 
         <receiver
             android:name=".receivers.MyReceiver"
@@ -36,11 +40,13 @@
             android:name=".activities.NotesActivity"
             android:label="@string/title_activity_notes"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.VisitorActivity" />
+        <activity android:name=".activities.VisitorActivity"
+            android:label="Visitor"/>
         <activity
             android:name=".activities.HomeActivity"
             android:label="@string/title_home_activity" />
-        <activity android:name=".activities.DemoActivity" />
+        <activity android:name=".activities.DemoActivity"
+            />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,6 +4,10 @@ import android.app.IntentService
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 
 class WeatherService : IntentService("Echo Service") {
 
@@ -29,12 +33,25 @@ class WeatherService : IntentService("Echo Service") {
 //            ACTION_EXTRA_ECHO
 //        )}", Toast.LENGTH_LONG).show()
 
-        //TODO Go to the network
         // Broadcasting the Temperature
-        val temperature: Float = 65F
-        val broadcastIntent = Intent(ACTION_WEATHER_ACQUIRED)
-        broadcastIntent.putExtra(EXTRA_WEATHER_DATA, temperature)
-        sendBroadcast(broadcastIntent)
+        val queue = Volley.newRequestQueue(this)
+
+        val url = "https://api.openweathermap.org/data/2.5/weather?q=Mountain+View&appid=0685c4e8066b577d449babf619cf4ab4&units=imperial"
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                val temperature: Float = response.getJSONObject("main").getDouble("temp").toFloat()
+                val broadcastIntent = Intent(ACTION_WEATHER_ACQUIRED)
+                broadcastIntent.putExtra(EXTRA_WEATHER_DATA, temperature)
+                sendBroadcast(broadcastIntent)
+            },
+            Response.ErrorListener { error ->
+                // TODO: Handle error
+            }
+        )
+        queue.add(jsonObjectRequest)
+
 
     } // After onHandleIntent the service will be stopped
 
